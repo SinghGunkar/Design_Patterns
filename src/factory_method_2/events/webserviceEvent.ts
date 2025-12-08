@@ -121,4 +121,4 @@ class WebserviceEvent extends Event<WebservicePayload> {
     }
 }
 
-export { WebserviceEvent, HttpMethod, WebserviceStatus, ResponseType };
+export { WebserviceEvent, HttpMethod, WebserviceStatus, ResponseType, EVENT_TYPE as WEBSERVICE_EVENT_TYPE };

@@ -96,4 +96,4 @@ class WorkflowEvent extends Event<WorkflowPayload> {
     }
 }
 
-export { WorkflowEvent, WorkflowStatus, WorkflowPriority };
+export { WorkflowEvent, WorkflowStatus, WorkflowPriority, EVENT_TYPE as WORKFLOW_EVENT_TYPE };
