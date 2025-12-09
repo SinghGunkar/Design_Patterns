@@ -1,4 +1,4 @@
-abstract class Event<T = Record<string, any>> {
+abstract class Event<T = Record<string, unknown>> {
     id: string;
     type: string;
     timestamp: Date;
@@ -11,7 +11,7 @@ abstract class Event<T = Record<string, any>> {
         this.payload = payload;
     }
 
-    protected getAdditionalFields(): Record<string, any> {
+    protected getAdditionalFields(): Record<string, unknown> {
         return {};
     }
 
@@ -30,7 +30,7 @@ abstract class Event<T = Record<string, any>> {
         return this.fromRecord(data);
     }
 
-    toRecord(): Record<string, any> {
+    toRecord(): Record<string, unknown> {
         return {
             id: this.id,
             type: this.type,
@@ -40,7 +40,8 @@ abstract class Event<T = Record<string, any>> {
         };
     }
 
-    static fromRecord(_record: Record<string, any>): Event {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    static fromRecord(_record: Record<string, unknown>): Event {
         throw new Error('fromRecord must be implemented by subclasses');
     }
 }

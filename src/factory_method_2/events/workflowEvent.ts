@@ -15,14 +15,14 @@ enum WorkflowPriority {
     HIGH = 'high'
 }
 
-interface WorkflowPayload {
+interface WorkflowPayload extends Record<string, unknown> {
     workflowName: string;
     workflowType: string;
     customerId: string;
     stepName?: string;
     executionTime?: number;
     message?: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
 }
 
 class WorkflowEvent extends Event<WorkflowPayload> {
@@ -51,7 +51,7 @@ class WorkflowEvent extends Event<WorkflowPayload> {
         this.retryCount = retryCount;
     }
 
-    protected override getAdditionalFields(): Record<string, any> {
+    protected override getAdditionalFields(): Record<string, unknown> {
         return {
             workflowId: this.workflowId,
             stepId: this.stepId,
@@ -62,18 +62,18 @@ class WorkflowEvent extends Event<WorkflowPayload> {
         };
     }
 
-    static override fromRecord(record: Record<string, any>): WorkflowEvent {
+    static override fromRecord(record: Record<string, unknown>): WorkflowEvent {
         const event = new WorkflowEvent(
-            record.workflowId,
-            record.stepId,
-            record.dbClusterId,
-            record.status,
-            record.priority,
-            record.retryCount,
-            record.payload
+            record.workflowId as string,
+            record.stepId as string,
+            record.dbClusterId as string,
+            record.status as WorkflowStatus,
+            record.priority as WorkflowPriority,
+            record.retryCount as number,
+            record.payload as WorkflowPayload
         );
-        event.id = record.id;
-        event.timestamp = new Date(record.timestamp);
+        event.id = record.id as string;
+        event.timestamp = new Date(record.timestamp as string);
         return event;
     }
 

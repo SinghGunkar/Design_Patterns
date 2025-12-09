@@ -1,9 +1,7 @@
 import { Event } from "./event.js";
 
-// Constants
 const EVENT_TYPE = 'test' as const;
 
-// Enums
 enum TestType {
     UNIT = 'unit',
     INTEGRATION = 'integration',
@@ -27,7 +25,7 @@ enum TestSeverity {
     LOW = 'low'
 }
 
-interface TestPayload {
+interface TestPayload extends Record<string, unknown> {
     testName: string;
     testSuite: string;
     testFile: string;
@@ -35,7 +33,7 @@ interface TestPayload {
     stackTrace?: string;
     assertions?: number;
     coverage?: number;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
 }
 
 class TestEvent extends Event<TestPayload> {
@@ -67,7 +65,7 @@ class TestEvent extends Event<TestPayload> {
         this.tags = tags;
     }
 
-    protected override getAdditionalFields(): Record<string, any> {
+    protected override getAdditionalFields(): Record<string, unknown> {
         return {
             testId: this.testId,
             testType: this.testType,
@@ -79,19 +77,19 @@ class TestEvent extends Event<TestPayload> {
         };
     }
 
-    static override fromRecord(record: Record<string, any>): TestEvent {
+    static override fromRecord(record: Record<string, unknown>): TestEvent {
         const event = new TestEvent(
-            record.testId,
-            record.testType,
-            record.status,
-            record.severity,
-            record.duration,
-            record.retryCount,
-            record.tags,
-            record.payload
+            record.testId as string,
+            record.testType as TestType,
+            record.status as TestStatus,
+            record.severity as TestSeverity,
+            record.duration as number,
+            record.retryCount as number,
+            record.tags as string[],
+            record.payload as TestPayload
         );
-        event.id = record.id;
-        event.timestamp = new Date(record.timestamp);
+        event.id = record.id as string;
+        event.timestamp = new Date(record.timestamp as string);
         return event;
     }
 

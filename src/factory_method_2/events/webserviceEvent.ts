@@ -26,14 +26,14 @@ enum ResponseType {
     BINARY = 'binary'
 }
 
-interface WebservicePayload {
+interface WebservicePayload extends Record<string, unknown> {
     endpoint: string;
-    requestBody?: any;
-    responseBody?: any;
+    requestBody?: unknown;
+    responseBody?: unknown;
     headers?: Record<string, string>;
     queryParams?: Record<string, string>;
     errorMessage?: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
 }
 
 class WebserviceEvent extends Event<WebservicePayload> {
@@ -65,7 +65,7 @@ class WebserviceEvent extends Event<WebservicePayload> {
         this.retryAttempt = retryAttempt;
     }
 
-    protected override getAdditionalFields(): Record<string, any> {
+    protected override getAdditionalFields(): Record<string, unknown> {
         return {
             requestId: this.requestId,
             method: this.method,
@@ -77,19 +77,19 @@ class WebserviceEvent extends Event<WebservicePayload> {
         };
     }
 
-    static override fromRecord(record: Record<string, any>): WebserviceEvent {
+    static override fromRecord(record: Record<string, unknown>): WebserviceEvent {
         const event = new WebserviceEvent(
-            record.requestId,
-            record.method,
-            record.statusCode,
-            record.responseTime,
-            record.status,
-            record.responseType,
-            record.retryAttempt,
-            record.payload
+            record.requestId as string,
+            record.method as HttpMethod,
+            record.statusCode as number,
+            record.responseTime as number,
+            record.status as WebserviceStatus,
+            record.responseType as ResponseType,
+            record.retryAttempt as number,
+            record.payload as WebservicePayload
         );
-        event.id = record.id;
-        event.timestamp = new Date(record.timestamp);
+        event.id = record.id as string;
+        event.timestamp = new Date(record.timestamp as string);
         return event;
     }
 

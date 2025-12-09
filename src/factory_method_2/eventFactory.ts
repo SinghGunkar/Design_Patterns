@@ -6,7 +6,6 @@ import { WORKFLOW_EVENT_TYPE } from "./events/workflowEvent.js";
 import { WEBSERVICE_EVENT_TYPE } from "./events/webserviceEvent.js";
 import { TEST_EVENT_TYPE } from "./events/testEvent.js";
 
-// Event type constants
 const EVENT_TYPES = {
     WORKFLOW: WORKFLOW_EVENT_TYPE,
     WEBSERVICE: WEBSERVICE_EVENT_TYPE,
@@ -15,22 +14,9 @@ const EVENT_TYPES = {
 
 type EventType = typeof EVENT_TYPES[keyof typeof EVENT_TYPES];
 
-/**
- * EventFactory - Factory Method Pattern Implementation
- * 
- * This factory creates concrete Event instances based on the event type.
- * It encapsulates the creation logic and delegates to the appropriate
- * concrete class's fromRecord method.
- */
+
 class EventFactory {
-    /**
-     * Creates an Event instance from a record object
-     * 
-     * @param record - The record containing event data with a 'type' field
-     * @returns An instance of the appropriate concrete Event class
-     * @throws Error if the event type is unknown
-     */
-    static createEvent(record: Record<string, any>): Event {
+    static createEvent(record: Record<string, unknown>): Event {
         const eventType = record.type as EventType;
 
         switch (eventType) {
@@ -48,42 +34,19 @@ class EventFactory {
         }
     }
 
-    /**
-     * Creates an Event instance from a JSON string
-     * 
-     * @param json - The JSON string containing event data
-     * @returns An instance of the appropriate concrete Event class
-     */
     static createEventFromJSON(json: string): Event {
         const record = JSON.parse(json);
         return this.createEvent(record);
     }
 
-    /**
-     * Creates multiple Event instances from an array of records
-     * 
-     * @param records - Array of record objects
-     * @returns Array of Event instances
-     */
-    static createEvents(records: Record<string, any>[]): Event[] {
+    static createEvents(records: Record<string, unknown>[]): Event[] {
         return records.map(record => this.createEvent(record));
     }
 
-    /**
-     * Checks if a given event type is supported by the factory
-     * 
-     * @param eventType - The event type to check
-     * @returns True if the event type is supported
-     */
     static isEventTypeSupported(eventType: string): boolean {
         return Object.values(EVENT_TYPES).includes(eventType as EventType);
     }
 
-    /**
-     * Gets all supported event types
-     * 
-     * @returns Array of supported event type strings
-     */
     static getSupportedEventTypes(): string[] {
         return Object.values(EVENT_TYPES);
     }
