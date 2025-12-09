@@ -16,6 +16,8 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "@types/sqlite3": "^3.1.11",
     "eslint": "^9.39.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
