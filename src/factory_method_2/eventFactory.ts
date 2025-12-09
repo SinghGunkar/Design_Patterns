@@ -1,4 +1,4 @@
-import { Event } from "./abstract/event.js";
+import { Event } from "./events/event.js";
 import { WorkflowEvent } from "./events/workflowEvent.js";
 import { WebserviceEvent } from "./events/webserviceEvent.js";
 import { TestEvent } from "./events/testEvent.js";

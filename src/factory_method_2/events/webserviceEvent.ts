@@ -1,9 +1,7 @@
-import { Event } from "../abstract/event.js";
+import { Event } from "./event.js";
 
-// Constants
 const EVENT_TYPE = 'webservice' as const;
 
-// Enums
 enum HttpMethod {
     GET = 'GET',
     POST = 'POST',

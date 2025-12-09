@@ -1,9 +1,7 @@
-import { Event } from "../abstract/event.js";
+import { Event } from "./event.js";
 
-// Constants
 const EVENT_TYPE = 'workflow' as const;
 
-// Enums
 enum WorkflowStatus {
     STARTED = 'started',
     IN_PROGRESS = 'in_progress',

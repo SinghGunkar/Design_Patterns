@@ -1,4 +1,4 @@
-import { Event } from "../abstract/event.js";
+import { Event } from "./event.js";
 
 // Constants
 const EVENT_TYPE = 'test' as const;
