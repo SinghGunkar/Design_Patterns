@@ -7,7 +7,8 @@
     "serve": "ts-node ./src",
     "start": "node ./dist",
     "lint": "eslint \"src/**/*.ts\"",
-    "lint:fix": "eslint \"src/**/*.ts\" --fix"
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -18,10 +19,13 @@
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
     "@types/sqlite3": "^3.1.11",
+    "@types/uuid": "^10.0.0",
     "eslint": "^9.39.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.48.0",
+    "uuid": "^13.0.0",
+    "vitest": "^4.0.15"
   },
   "type": "module",
   "dependencies": {
