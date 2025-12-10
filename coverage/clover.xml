@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1765349088847" clover="3.2.0">
+  <project timestamp="1765349088847" name="All files">
+    <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6" elements="16" coveredelements="16" complexity="0" loc="10" ncloc="10" packages="1" files="1" classes="1"/>
+    <file name="event.ts" path="/Users/gunkar/Documents/Coding/Design Patterns/src/factory_method_2/events/event.ts">
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <line num="8" count="21" type="stmt"/>
+      <line num="9" count="21" type="stmt"/>
+      <line num="10" count="21" type="stmt"/>
+      <line num="11" count="21" type="stmt"/>
+      <line num="15" count="7" type="stmt"/>
+      <line num="19" count="6" type="stmt"/>
+      <line num="29" count="4" type="stmt"/>
+      <line num="30" count="4" type="stmt"/>
+      <line num="34" count="4" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
