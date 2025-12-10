@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { EventFactory } from './eventFactory.js';
-import { PGDatabaseFactory, MongoDBDatabaseFactory, SQLiteDatabaseFactory, JSONDatabaseFactory } from './databases.js';
+import { PGDatabaseFactory, MongoDBDatabaseFactory, SQLiteDatabaseFactory, JSONDatabaseFactory } from './database/index.js';
 
 async function main() {
     const sampleData = fs.readFileSync('./sampleEvents.json', 'utf-8');
