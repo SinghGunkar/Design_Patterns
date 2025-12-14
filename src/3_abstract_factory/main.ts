@@ -12,8 +12,10 @@ function clientCode(factory: BillingIntegrationFactory, province: string, valida
     const validationEngine = factory.createValidationEngine();
 
     console.log(`\n=== ${province} Billing Integration ===`);
-    console.log('Vision Claim:', visionForm.submit({ isInsured: true }));
-    console.log('Medical Claim:', medicalForm.submit({ isInsured: false }));
+    const visionResult = visionForm.submit({ isInsured: true });
+    console.log('Vision Claim:', visionResult.success ? visionResult.message : visionResult.message, 'via', visionResult.system);
+    const medicalResult = medicalForm.submit({ isInsured: false });
+    console.log('Medical Claim:', medicalResult.success ? medicalResult.message : medicalResult.message, 'via', medicalResult.system);
     console.log('Fee for OPT-EXAM:', feeSchedule.lookupCode('OPT-EXAM'));
     console.log('Validation:', validationEngine.validate(validationData));
 }

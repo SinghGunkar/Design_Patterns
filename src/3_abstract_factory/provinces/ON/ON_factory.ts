@@ -1,7 +1,7 @@
 import type { BillingIntegrationFactory, FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
 import type { ClaimFormFactory, ClaimForm, ClaimFormType } from '../../interfaces/I_claim_form.js';
 import { CLAIM_FORM_TYPES } from '../../interfaces/I_claim_form.js';
-import { ONVisionClaimForm, ONMedicalClaimForm, ONFeeSchedule, ONValidationEngine } from './ON_products.js';
+import { ONVisionClaimForm, ONMedicalClaimForm, ONDentalClaimForm, ONFeeSchedule, ONValidationEngine } from './ON_products.js';
 
 export class ONClaimFormFactory implements ClaimFormFactory {
     createClaimForm(type: ClaimFormType): ClaimForm {
@@ -10,6 +10,8 @@ export class ONClaimFormFactory implements ClaimFormFactory {
                 return new ONVisionClaimForm();
             case CLAIM_FORM_TYPES.MEDICAL:
                 return new ONMedicalClaimForm();
+            case CLAIM_FORM_TYPES.DENTAL:
+                return new ONDentalClaimForm();
             default:
                 throw new Error(`Unknown claim form type: ${type}`);
         }

@@ -1,5 +1,5 @@
 import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
-import type { ClaimForm } from '../../interfaces/I_claim_form.js';
+import type { ClaimForm, ClaimSubmissionResult } from '../../interfaces/I_claim_form.js';
 
 const BC_SYSTEM_NAME = "Teleplan";
 const STATUS_SUCCESS = "successfully.";
@@ -12,20 +12,36 @@ const VALIDATION_FAILED = "BC Data Invalid: Missing required PHN.";
 
 
 export class BCVisionClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `BC VISION Claim Form submitted to ${BC_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `BC VISION Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: BC_SYSTEM_NAME
+            };
         }
-        return `BC VISION Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `BC VISION Claim Form ${STATUS_PRIVATE}`,
+            system: BC_SYSTEM_NAME
+        };
     }
 }
 
 export class BCMedicalClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `BC MEDICAL Claim Form submitted to ${BC_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `BC MEDICAL Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: BC_SYSTEM_NAME
+            };
         }
-        return `BC MEDICAL Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `BC MEDICAL Claim Form ${STATUS_PRIVATE}`,
+            system: BC_SYSTEM_NAME
+        };
     }
 }
 

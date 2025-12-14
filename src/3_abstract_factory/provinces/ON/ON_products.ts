@@ -1,6 +1,5 @@
 import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
-import type { ClaimForm } from '../../interfaces/I_claim_form.js';
-
+import type { ClaimForm, ClaimSubmissionResult } from '../../interfaces/I_claim_form.js';
 
 const ON_SYSTEM_NAME = "Health Card System";
 const STATUS_SUCCESS = "successfully.";
@@ -12,20 +11,53 @@ const VALIDATION_PASSED = "ON Data Valid: OHIP check passed.";
 const VALIDATION_FAILED = "ON Data Invalid: Missing required OHIP_ID.";
 
 export class ONVisionClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `ON VISION Claim Form submitted to ${ON_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `ON VISION Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: ON_SYSTEM_NAME
+            };
         }
-        return `ON VISION Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `ON VISION Claim Form ${STATUS_PRIVATE}`,
+            system: ON_SYSTEM_NAME
+        };
     }
 }
 
 export class ONMedicalClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `ON MEDICAL Claim Form submitted to ${ON_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `ON MEDICAL Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: ON_SYSTEM_NAME
+            };
         }
-        return `ON MEDICAL Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `ON MEDICAL Claim Form ${STATUS_PRIVATE}`,
+            system: ON_SYSTEM_NAME
+        };
+    }
+}
+
+export class ONDentalClaimForm implements ClaimForm {
+    submit(data: any): ClaimSubmissionResult {
+        if (data.isInsured) {
+            return {
+                success: true,
+                message: `ON DENTAL Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: ON_SYSTEM_NAME
+            };
+        }
+        return {
+            success: false,
+            message: `ON DENTAL Claim Form ${STATUS_PRIVATE}`,
+            system: ON_SYSTEM_NAME
+        };
     }
 }
 

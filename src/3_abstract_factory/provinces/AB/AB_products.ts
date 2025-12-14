@@ -1,5 +1,5 @@
 import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
-import type { ClaimForm } from '../../interfaces/I_claim_form.js';
+import type { ClaimForm, ClaimSubmissionResult } from '../../interfaces/I_claim_form.js';
 
 const AB_SYSTEM_NAME = "Alberta Health System";
 const STATUS_SUCCESS = "successfully.";
@@ -11,20 +11,53 @@ const VALIDATION_PASSED = "AB Data Valid: Alberta Health Care check passed.";
 const VALIDATION_FAILED = "AB Data Invalid: Missing required AHC_ID.";
 
 export class ABVisionClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `AB VISION Claim Form submitted to ${AB_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `AB VISION Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: AB_SYSTEM_NAME
+            };
         }
-        return `AB VISION Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `AB VISION Claim Form ${STATUS_PRIVATE}`,
+            system: AB_SYSTEM_NAME
+        };
     }
 }
 
 export class ABMedicalClaimForm implements ClaimForm {
-    submit(data: any): string {
+    submit(data: any): ClaimSubmissionResult {
         if (data.isInsured) {
-            return `AB MEDICAL Claim Form submitted to ${AB_SYSTEM_NAME} ${STATUS_SUCCESS}.`;
+            return {
+                success: true,
+                message: `AB MEDICAL Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: AB_SYSTEM_NAME
+            };
         }
-        return `AB MEDICAL Claim Form ${STATUS_PRIVATE}`;
+        return {
+            success: false,
+            message: `AB MEDICAL Claim Form ${STATUS_PRIVATE}`,
+            system: AB_SYSTEM_NAME
+        };
+    }
+}
+
+export class ABDentalClaimForm implements ClaimForm {
+    submit(data: any): ClaimSubmissionResult {
+        if (data.isInsured) {
+            return {
+                success: true,
+                message: `AB DENTAL Claim Form submitted ${STATUS_SUCCESS}.`,
+                system: AB_SYSTEM_NAME
+            };
+        }
+        return {
+            success: false,
+            message: `AB DENTAL Claim Form ${STATUS_PRIVATE}`,
+            system: AB_SYSTEM_NAME
+        };
     }
 }
 
