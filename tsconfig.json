@@ -39,4 +39,9 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "exclude": [
+    "generate-readme.ts",
+    "dist",
+    "node_modules"
+  ]
 }
