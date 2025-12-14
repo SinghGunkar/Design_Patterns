@@ -1,5 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { SQLiteConnection } from './sqliteConnection.js';
+import os from 'os';
+import path from 'path';
+import fs from 'fs';
 
 describe('SQLiteConnection', () => {
     let connection: SQLiteConnection;
@@ -21,9 +24,14 @@ describe('SQLiteConnection', () => {
         });
 
         it('should allow connection to file-based database', async () => {
-            const fileConnection = new SQLiteConnection('./test-temp.db');
+            const testDbPath = path.join(os.tmpdir(), `test-${Date.now()}.db`);
+            const fileConnection = new SQLiteConnection(testDbPath);
             await expect(fileConnection.connect()).resolves.not.toThrow();
             await fileConnection.disconnect();
+
+            if (fs.existsSync(testDbPath)) {
+                fs.unlinkSync(testDbPath);
+            }
         });
     });
 
