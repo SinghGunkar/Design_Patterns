@@ -131,7 +131,8 @@ describe('Ontario Products', () => {
                 ohipId: '1234567890'
             });
 
-            expect(result).toBe('ON Data Valid: OHIP check passed.');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without ohipId', () => {
@@ -142,7 +143,8 @@ describe('Ontario Products', () => {
                 // missing ohipId
             } as any);
 
-            expect(result).toBe('ON Data Invalid: Missing required OHIP_ID.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('OHIP ID is required');
         });
 
         it('should reject data with empty ohipId', () => {
@@ -153,7 +155,8 @@ describe('Ontario Products', () => {
                 ohipId: ''
             });
 
-            expect(result).toBe('ON Data Invalid: Missing required OHIP_ID.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('OHIP ID is required');
         });
     });
 });

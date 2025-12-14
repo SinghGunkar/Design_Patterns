@@ -72,7 +72,8 @@ describe('BCBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM',
                 phn: '9876543210'
             });
-            expect(result).toContain('BC Data Valid');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without phn', () => {
@@ -82,7 +83,8 @@ describe('BCBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM'
                 // missing phn
             } as any);
-            expect(result).toContain('BC Data Invalid');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Personal Health Number is required');
         });
     });
 });

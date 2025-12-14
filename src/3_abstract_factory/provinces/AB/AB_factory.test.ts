@@ -78,7 +78,8 @@ describe('ABBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM',
                 ahcId: 'AB123'
             });
-            expect(result).toContain('AB Data Valid');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without ahcId', () => {
@@ -88,7 +89,8 @@ describe('ABBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM'
                 // missing ahcId
             } as any);
-            expect(result).toContain('AB Data Invalid');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Alberta Health Care ID is required');
         });
     });
 });

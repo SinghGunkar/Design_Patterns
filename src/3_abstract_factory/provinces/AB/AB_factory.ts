@@ -1,4 +1,5 @@
-import type { BillingIntegrationFactory, FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
+import { BillingIntegrationFactory } from '../../interfaces/I_billing_factory.js';
+import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
 import type { ClaimFormFactory, ClaimForm, ClaimFormType } from '../../interfaces/I_claim_form.js';
 import { CLAIM_FORM_TYPES } from '../../interfaces/I_claim_form.js';
 import { ABVisionClaimForm, ABMedicalClaimForm, ABDentalClaimForm, ABFeeSchedule, ABValidationEngine } from './AB_products.js';
@@ -18,8 +19,8 @@ export class ABClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class ABBillingIntegrationFactory implements BillingIntegrationFactory<'Alberta'> {
-    readonly province: 'Alberta' = 'Alberta';
+export class ABBillingIntegrationFactory extends BillingIntegrationFactory<'Alberta'> {
+    protected readonly _province: 'Alberta' = 'Alberta';
 
     createClaimFormFactory(): ClaimFormFactory {
         return new ABClaimFormFactory();

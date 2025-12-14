@@ -70,10 +70,14 @@ export class ONFeeSchedule implements FeeSchedule {
 }
 
 export class ONValidationEngine implements ValidationEngine<'Ontario'> {
-    validate(data: ONClaimData): string {
-        if (data.ohipId) {
-            return VALIDATION_PASSED;
+    validate(data: ONClaimData): import('../../interfaces/I_billing_factory.js').ValidationResult {
+        const errors: string[] = [];
+        if (!data.ohipId || !data.ohipId.trim()) {
+            errors.push('OHIP ID is required');
         }
-        return VALIDATION_FAILED;
+        return {
+            isValid: errors.length === 0,
+            errors
+        };
     }
 }

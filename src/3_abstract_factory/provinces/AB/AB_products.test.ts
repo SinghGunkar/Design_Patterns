@@ -136,7 +136,8 @@ describe('Alberta Products', () => {
                 ahcId: 'AB123456789'
             });
 
-            expect(result).toBe('AB Data Valid: Alberta Health Care check passed.');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without ahcId', () => {
@@ -147,7 +148,8 @@ describe('Alberta Products', () => {
                 // missing ahcId
             } as any);
 
-            expect(result).toBe('AB Data Invalid: Missing required AHC_ID.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Alberta Health Care ID is required');
         });
 
         it('should reject data with empty ahcId', () => {
@@ -158,10 +160,11 @@ describe('Alberta Products', () => {
                 ahcId: ''
             });
 
-            expect(result).toBe('AB Data Invalid: Missing required AHC_ID.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Alberta Health Care ID is required');
         });
 
-        it('should validate data with whitespace ahcId', () => {
+        it('should reject data with whitespace ahcId', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
@@ -169,7 +172,8 @@ describe('Alberta Products', () => {
                 ahcId: '   '
             });
 
-            expect(result).toBe('AB Data Valid: Alberta Health Care check passed.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Alberta Health Care ID is required');
         });
     });
 });

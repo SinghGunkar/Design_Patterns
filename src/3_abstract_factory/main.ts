@@ -19,7 +19,8 @@ function clientCode<P extends Province>(factory: BillingIntegrationFactory<P>, c
     const medicalResult = medicalForm.submit(claimData);
     console.log('Medical Claim:', medicalResult.success ? medicalResult.message : medicalResult.message, 'via', medicalResult.system);
     console.log('Fee for OPT-EXAM:', feeSchedule.lookupCode('OPT-EXAM'));
-    console.log('Validation:', validationEngine.validate(claimData));
+    const validation = validationEngine.validate(claimData);
+    console.log('Validation:', validation.isValid ? 'Valid' : `Invalid: ${validation.errors.join(', ')}`);
 }
 
 clientCode(new ABBillingIntegrationFactory(), {

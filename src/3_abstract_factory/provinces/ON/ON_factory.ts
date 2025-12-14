@@ -1,4 +1,5 @@
-import type { BillingIntegrationFactory, FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
+import { BillingIntegrationFactory } from '../../interfaces/I_billing_factory.js';
+import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
 import type { ClaimFormFactory, ClaimForm, ClaimFormType } from '../../interfaces/I_claim_form.js';
 import { CLAIM_FORM_TYPES } from '../../interfaces/I_claim_form.js';
 import { ONVisionClaimForm, ONMedicalClaimForm, ONDentalClaimForm, ONFeeSchedule, ONValidationEngine } from './ON_products.js';
@@ -18,8 +19,8 @@ export class ONClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class ONBillingIntegrationFactory implements BillingIntegrationFactory<'Ontario'> {
-    readonly province: 'Ontario' = 'Ontario';
+export class ONBillingIntegrationFactory extends BillingIntegrationFactory<'Ontario'> {
+    protected readonly _province: 'Ontario' = 'Ontario';
 
     createClaimFormFactory(): ClaimFormFactory {
         return new ONClaimFormFactory();

@@ -78,7 +78,8 @@ describe('ONBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM',
                 ohipId: '1234567890'
             });
-            expect(result).toContain('ON Data Valid');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without ohipId', () => {
@@ -88,7 +89,8 @@ describe('ONBillingIntegrationFactory', () => {
                 serviceCode: 'OPT-EXAM'
                 // missing ohipId
             } as any);
-            expect(result).toContain('ON Data Invalid');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('OHIP ID is required');
         });
     });
 });

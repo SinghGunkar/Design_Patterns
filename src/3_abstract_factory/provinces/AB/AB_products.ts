@@ -70,10 +70,14 @@ export class ABFeeSchedule implements FeeSchedule {
 }
 
 export class ABValidationEngine implements ValidationEngine<'Alberta'> {
-    validate(data: ABClaimData): string {
-        if (data.ahcId) {
-            return VALIDATION_PASSED;
+    validate(data: ABClaimData): import('../../interfaces/I_billing_factory.js').ValidationResult {
+        const errors: string[] = [];
+        if (!data.ahcId || !data.ahcId.trim()) {
+            errors.push('Alberta Health Care ID is required');
         }
-        return VALIDATION_FAILED;
+        return {
+            isValid: errors.length === 0,
+            errors
+        };
     }
 }

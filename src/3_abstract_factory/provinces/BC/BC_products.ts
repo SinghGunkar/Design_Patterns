@@ -54,10 +54,14 @@ export class BCFeeSchedule implements FeeSchedule {
 }
 
 export class BCValidationEngine implements ValidationEngine<'British Columbia'> {
-    validate(data: BCClaimData): string {
-        if (data.phn) {
-            return VALIDATION_PASSED;
+    validate(data: BCClaimData): import('../../interfaces/I_billing_factory.js').ValidationResult {
+        const errors: string[] = [];
+        if (!data.phn || !data.phn.trim()) {
+            errors.push('Personal Health Number is required');
         }
-        return VALIDATION_FAILED;
+        return {
+            isValid: errors.length === 0,
+            errors
+        };
     }
 }

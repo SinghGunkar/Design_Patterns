@@ -24,12 +24,13 @@ describe('Abstract Factory Integration', () => {
             expect(result.success).toBe(true);
             expect(result.system).toBe('Alberta Health System');
             expect(feeSchedule.lookupCode('OPT-EXAM')).toBe(80);
-            expect(validationEngine.validate({
+            const validation = validationEngine.validate({
                 patientName: 'John Doe',
                 isInsured: true,
                 serviceCode: 'OPT-EXAM',
                 ahcId: 'AB123'
-            })).toContain('Valid');
+            });
+            expect(validation.isValid).toBe(true);
         });
     });
 
@@ -52,12 +53,13 @@ describe('Abstract Factory Integration', () => {
             expect(result.success).toBe(true);
             expect(result.system).toBe('Teleplan');
             expect(feeSchedule.lookupCode('OPT-EXAM')).toBe(85);
-            expect(validationEngine.validate({
+            const validation = validationEngine.validate({
                 patientName: 'Jane Smith',
                 isInsured: true,
                 serviceCode: 'MED-EXAM',
                 phn: '9876543210'
-            })).toContain('Valid');
+            });
+            expect(validation.isValid).toBe(true);
         });
     });
 
@@ -80,12 +82,13 @@ describe('Abstract Factory Integration', () => {
             expect(result.success).toBe(false); // not insured
             expect(result.system).toBe('Health Card System');
             expect(feeSchedule.lookupCode('OPT-EXAM')).toBe(70);
-            expect(validationEngine.validate({
+            const validation = validationEngine.validate({
                 patientName: 'Bob Johnson',
                 isInsured: false,
                 serviceCode: 'DENTAL-EXAM',
                 ohipId: '1234567890'
-            })).toContain('Valid');
+            });
+            expect(validation.isValid).toBe(true);
         });
     });
 

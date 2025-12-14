@@ -1,4 +1,5 @@
-import type { BillingIntegrationFactory, FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
+import { BillingIntegrationFactory } from '../../interfaces/I_billing_factory.js';
+import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
 import type { ClaimFormFactory, ClaimForm, ClaimFormType } from '../../interfaces/I_claim_form.js';
 import { CLAIM_FORM_TYPES } from '../../interfaces/I_claim_form.js';
 import { BCVisionClaimForm, BCMedicalClaimForm, BCFeeSchedule, BCValidationEngine } from './BC_products.js';
@@ -16,8 +17,8 @@ export class BCClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class BCBillingIntegrationFactory implements BillingIntegrationFactory<'British Columbia'> {
-    readonly province: 'British Columbia' = 'British Columbia';
+export class BCBillingIntegrationFactory extends BillingIntegrationFactory<'British Columbia'> {
+    protected readonly _province: 'British Columbia' = 'British Columbia';
 
     createClaimFormFactory(): ClaimFormFactory {
         return new BCClaimFormFactory();

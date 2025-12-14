@@ -97,7 +97,8 @@ describe('British Columbia Products', () => {
                 phn: '9876543210'
             });
 
-            expect(result).toBe('BC Data Valid: Patient Health Number check passed.');
+            expect(result.isValid).toBe(true);
+            expect(result.errors).toHaveLength(0);
         });
 
         it('should reject data without phn', () => {
@@ -108,7 +109,8 @@ describe('British Columbia Products', () => {
                 // missing phn
             } as any);
 
-            expect(result).toBe('BC Data Invalid: Missing required PHN.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Personal Health Number is required');
         });
 
         it('should reject data with empty phn', () => {
@@ -119,7 +121,8 @@ describe('British Columbia Products', () => {
                 phn: ''
             });
 
-            expect(result).toBe('BC Data Invalid: Missing required PHN.');
+            expect(result.isValid).toBe(false);
+            expect(result.errors).toContain('Personal Health Number is required');
         });
     });
 });
