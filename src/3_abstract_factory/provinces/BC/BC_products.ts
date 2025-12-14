@@ -1,18 +1,17 @@
 import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
-import type { ClaimForm, ClaimSubmissionResult } from '../../interfaces/I_claim_form.js';
+import type { ClaimForm, ClaimSubmissionResult, ClaimData, BCClaimData } from '../../interfaces/I_claim_form.js';
 
 const BC_SYSTEM_NAME = "Teleplan";
 const STATUS_SUCCESS = "successfully.";
 const STATUS_PRIVATE = "submitted as private pay invoice.";
 const SERVICE_OPT_EXAM = "OPT-EXAM";
 const FEE_OPT_EXAM = 85.00;
-const VALIDATION_KEY = "PHN";
 const VALIDATION_PASSED = "BC Data Valid: Patient Health Number check passed.";
 const VALIDATION_FAILED = "BC Data Invalid: Missing required PHN.";
 
 
 export class BCVisionClaimForm implements ClaimForm {
-    submit(data: any): ClaimSubmissionResult {
+    submit(data: ClaimData): ClaimSubmissionResult {
         if (data.isInsured) {
             return {
                 success: true,
@@ -29,7 +28,7 @@ export class BCVisionClaimForm implements ClaimForm {
 }
 
 export class BCMedicalClaimForm implements ClaimForm {
-    submit(data: any): ClaimSubmissionResult {
+    submit(data: ClaimData): ClaimSubmissionResult {
         if (data.isInsured) {
             return {
                 success: true,
@@ -54,9 +53,9 @@ export class BCFeeSchedule implements FeeSchedule {
     }
 }
 
-export class BCValidationEngine implements ValidationEngine {
-    validate(data: any): string {
-        if (data[VALIDATION_KEY]) {
+export class BCValidationEngine implements ValidationEngine<'British Columbia'> {
+    validate(data: BCClaimData): string {
+        if (data.phn) {
             return VALIDATION_PASSED;
         }
         return VALIDATION_FAILED;

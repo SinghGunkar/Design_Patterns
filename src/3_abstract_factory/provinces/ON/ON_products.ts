@@ -1,17 +1,16 @@
 import type { FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
-import type { ClaimForm, ClaimSubmissionResult } from '../../interfaces/I_claim_form.js';
+import type { ClaimForm, ClaimSubmissionResult, ClaimData, ONClaimData } from '../../interfaces/I_claim_form.js';
 
 const ON_SYSTEM_NAME = "Health Card System";
 const STATUS_SUCCESS = "successfully.";
 const STATUS_PRIVATE = "submitted as private pay invoice.";
 const SERVICE_OPT_EXAM = "OPT-EXAM";
 const FEE_OPT_EXAM = 70.00;
-const VALIDATION_KEY = "OHIP_ID";
 const VALIDATION_PASSED = "ON Data Valid: OHIP check passed.";
 const VALIDATION_FAILED = "ON Data Invalid: Missing required OHIP_ID.";
 
 export class ONVisionClaimForm implements ClaimForm {
-    submit(data: any): ClaimSubmissionResult {
+    submit(data: ClaimData): ClaimSubmissionResult {
         if (data.isInsured) {
             return {
                 success: true,
@@ -28,7 +27,7 @@ export class ONVisionClaimForm implements ClaimForm {
 }
 
 export class ONMedicalClaimForm implements ClaimForm {
-    submit(data: any): ClaimSubmissionResult {
+    submit(data: ClaimData): ClaimSubmissionResult {
         if (data.isInsured) {
             return {
                 success: true,
@@ -45,7 +44,7 @@ export class ONMedicalClaimForm implements ClaimForm {
 }
 
 export class ONDentalClaimForm implements ClaimForm {
-    submit(data: any): ClaimSubmissionResult {
+    submit(data: ClaimData): ClaimSubmissionResult {
         if (data.isInsured) {
             return {
                 success: true,
@@ -70,9 +69,9 @@ export class ONFeeSchedule implements FeeSchedule {
     }
 }
 
-export class ONValidationEngine implements ValidationEngine {
-    validate(data: any): string {
-        if (data[VALIDATION_KEY]) {
+export class ONValidationEngine implements ValidationEngine<'Ontario'> {
+    validate(data: ONClaimData): string {
+        if (data.ohipId) {
             return VALIDATION_PASSED;
         }
         return VALIDATION_FAILED;

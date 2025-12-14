@@ -1,15 +1,16 @@
-import type { ClaimFormFactory } from './I_claim_form.js';
+import type { ClaimFormFactory, Province, ProvinceData } from './I_claim_form.js';
 
 export interface FeeSchedule {
     lookupCode(serviceCode: string): number | null;
 }
 
-export interface ValidationEngine {
-    validate(data: any): string;
+export interface ValidationEngine<P extends Province> {
+    validate(data: ProvinceData[P]): string;
 }
 
-export interface BillingIntegrationFactory {
+export interface BillingIntegrationFactory<P extends Province> {
+    readonly province: P;
     createClaimFormFactory(): ClaimFormFactory;
     createFeeSchedule(): FeeSchedule;
-    createValidationEngine(): ValidationEngine;
+    createValidationEngine(): ValidationEngine<P>;
 }

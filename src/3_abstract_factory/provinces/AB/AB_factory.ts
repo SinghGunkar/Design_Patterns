@@ -18,7 +18,9 @@ export class ABClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class ABBillingIntegrationFactory implements BillingIntegrationFactory {
+export class ABBillingIntegrationFactory implements BillingIntegrationFactory<'Alberta'> {
+    readonly province: 'Alberta' = 'Alberta';
+
     createClaimFormFactory(): ClaimFormFactory {
         return new ABClaimFormFactory();
     }
@@ -27,7 +29,7 @@ export class ABBillingIntegrationFactory implements BillingIntegrationFactory {
         return new ABFeeSchedule();
     }
 
-    createValidationEngine(): ValidationEngine {
+    createValidationEngine(): ValidationEngine<'Alberta'> {
         return new ABValidationEngine();
     }
 }

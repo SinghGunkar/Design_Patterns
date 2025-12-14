@@ -16,7 +16,9 @@ export class BCClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class BCBillingIntegrationFactory implements BillingIntegrationFactory {
+export class BCBillingIntegrationFactory implements BillingIntegrationFactory<'British Columbia'> {
+    readonly province: 'British Columbia' = 'British Columbia';
+
     createClaimFormFactory(): ClaimFormFactory {
         return new BCClaimFormFactory();
     }
@@ -25,7 +27,7 @@ export class BCBillingIntegrationFactory implements BillingIntegrationFactory {
         return new BCFeeSchedule();
     }
 
-    createValidationEngine(): ValidationEngine {
+    createValidationEngine(): ValidationEngine<'British Columbia'> {
         return new BCValidationEngine();
     }
 }

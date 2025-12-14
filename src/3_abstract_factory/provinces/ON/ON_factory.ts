@@ -18,7 +18,9 @@ export class ONClaimFormFactory implements ClaimFormFactory {
     }
 }
 
-export class ONBillingIntegrationFactory implements BillingIntegrationFactory {
+export class ONBillingIntegrationFactory implements BillingIntegrationFactory<'Ontario'> {
+    readonly province: 'Ontario' = 'Ontario';
+
     createClaimFormFactory(): ClaimFormFactory {
         return new ONClaimFormFactory();
     }
@@ -27,7 +29,7 @@ export class ONBillingIntegrationFactory implements BillingIntegrationFactory {
         return new ONFeeSchedule();
     }
 
-    createValidationEngine(): ValidationEngine {
+    createValidationEngine(): ValidationEngine<'Ontario'> {
         return new ONValidationEngine();
     }
 }
