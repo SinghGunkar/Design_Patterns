@@ -11,13 +11,13 @@ async function generateTrees() {
 
     const sections = [
         {
-            base: 'src/factory_method_1',
+            base: 'src/1_factory_method',
             title: 'Factory Method 1: Simple Notification System',
             description: 'Demonstrates the Factory Method pattern with different notification types (Email, SMS, Push, Slack, Delayed Email).',
             runCommand: 'npx tsx src/factory_method_1/index.ts'
         },
         {
-            base: 'src/factory_method_2',
+            base: 'src/2_factory_method',
             title: 'Factory Method 2: Event Storage with Multiple Databases',
             description: 'Shows the pattern for creating database connections and storing events in SQLite, JSON, PostgreSQL, and MongoDB.',
             runCommand: 'npx tsx src/factory_method_2/index.ts'

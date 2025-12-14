@@ -23,7 +23,7 @@ npx tsx src/factory_method_1/index.ts
 ### Directory Structure
 
 ```
-factory_method_1
+1_factory_method
 ├── _example.ts
 ├── concrete-classes.ts
 ├── factory.ts
@@ -44,7 +44,7 @@ npx tsx src/factory_method_2/index.ts
 ### Directory Structure
 
 ```
-factory_method_2
+2_factory_method
 ├── database
 │   ├── connections
 │   │   ├── jsonConnection.test.ts
