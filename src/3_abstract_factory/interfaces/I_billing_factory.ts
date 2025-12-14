@@ -1,6 +1,4 @@
-export interface ClaimForm {
-    submit(data: any): string;
-}
+import type { ClaimFormFactory } from './I_claim_form.js';
 
 export interface FeeSchedule {
     lookupCode(serviceCode: string): number | null;
@@ -11,7 +9,7 @@ export interface ValidationEngine {
 }
 
 export interface BillingIntegrationFactory {
-    createClaimForm(): ClaimForm;
+    createClaimFormFactory(): ClaimFormFactory;
     createFeeSchedule(): FeeSchedule;
     createValidationEngine(): ValidationEngine;
 }

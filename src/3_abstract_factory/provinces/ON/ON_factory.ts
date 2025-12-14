@@ -1,31 +1,31 @@
 import type { BillingIntegrationFactory, FeeSchedule, ValidationEngine } from '../../interfaces/I_billing_factory.js';
 import type { ClaimFormFactory, ClaimForm, ClaimFormType } from '../../interfaces/I_claim_form.js';
 import { CLAIM_FORM_TYPES } from '../../interfaces/I_claim_form.js';
-import { BCVisionClaimForm, BCMedicalClaimForm, BCFeeSchedule, BCValidationEngine } from './BC_products.js';
+import { ONVisionClaimForm, ONMedicalClaimForm, ONFeeSchedule, ONValidationEngine } from './ON_products.js';
 
-export class BCClaimFormFactory implements ClaimFormFactory {
+export class ONClaimFormFactory implements ClaimFormFactory {
     createClaimForm(type: ClaimFormType): ClaimForm {
         switch (type) {
             case CLAIM_FORM_TYPES.VISION:
-                return new BCVisionClaimForm();
+                return new ONVisionClaimForm();
             case CLAIM_FORM_TYPES.MEDICAL:
-                return new BCMedicalClaimForm();
+                return new ONMedicalClaimForm();
             default:
                 throw new Error(`Unknown claim form type: ${type}`);
         }
     }
 }
 
-export class BCBillingIntegrationFactory implements BillingIntegrationFactory {
+export class ONBillingIntegrationFactory implements BillingIntegrationFactory {
     createClaimFormFactory(): ClaimFormFactory {
-        return new BCClaimFormFactory();
+        return new ONClaimFormFactory();
     }
 
     createFeeSchedule(): FeeSchedule {
-        return new BCFeeSchedule();
+        return new ONFeeSchedule();
     }
 
     createValidationEngine(): ValidationEngine {
-        return new BCValidationEngine();
+        return new ONValidationEngine();
     }
 }
