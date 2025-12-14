@@ -3,38 +3,53 @@ import type { DatabaseConnection } from '../interfaces.js';
 
 export class PGConnection implements DatabaseConnection {
     private client: Client | null = null;
-    private readonly host = 'localhost';
-    private readonly port = 5432;
-    private readonly database = 'eventdb';
-    private readonly user = 'postgres';
-    private readonly password = 'password';
+    private readonly config: {
+        host: string;
+        port: number;
+        database: string;
+        user: string;
+        password: string;
+    };
     private readonly createTableSQL = `CREATE TABLE IF NOT EXISTS $1 (id TEXT PRIMARY KEY, data JSONB)`;
 
+    constructor(config?: {
+        host?: string;
+        port?: number;
+        database?: string;
+        user?: string;
+        password?: string;
+    }) {
+        this.config = {
+            host: config?.host ?? 'localhost',
+            port: config?.port ?? 5432,
+            database: config?.database ?? 'eventdb',
+            user: config?.user ?? 'postgres',
+            password: config?.password ?? 'password'
+        };
+    }
+
     async connect(): Promise<void> {
-        this.client = new Client({
-            host: this.host,
-            port: this.port,
-            database: this.database,
-            user: this.user,
-            password: this.password
-        });
+        this.client = new Client(this.config);
         await this.client.connect();
-        console.log("Connected to PostgreSQL Database");
     }
 
     async disconnect(): Promise<void> {
-        if (this.client) {
-            await this.client.end();
-            console.log("Disconnected from PostgreSQL Database");
-        }
+        if (!this.client) return;
+
+        await this.client.end();
+        this.client = null;
+    }
+
+    async createTable(table: string): Promise<void> {
+        if (!this.client) throw new Error('Not connected');
+        const createSQL = this.createTableSQL.replace('$1', table);
+        await this.client.query(createSQL);
     }
 
     async save(table: string, record: Record<string, unknown>): Promise<void> {
         if (!this.client) throw new Error('Not connected');
-        await this.client.query(this.createTableSQL.replace('$1', table));
         const insertSQL = `INSERT INTO ${table} (id, data) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data`;
         await this.client.query(insertSQL, [record.id, JSON.stringify(record)]);
-        console.log(`Record saved to PostgreSQL table ${table}`);
     }
 
     async find(table: string, id: string): Promise<Record<string, unknown> | null> {
@@ -50,14 +65,10 @@ export class PGConnection implements DatabaseConnection {
         if (!this.client) throw new Error('Not connected');
         const updateSQL = `UPDATE ${table} SET data = $1 WHERE id = $2`;
         await this.client.query(updateSQL, [JSON.stringify(record), id]);
-        console.log(`Record ${id} updated in PostgreSQL table ${table}`);
     }
 
     async delete(table: string, id: string): Promise<void> {
         if (!this.client) throw new Error('Not connected');
         await this.client.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
-        console.log(`Record ${id} deleted from PostgreSQL table ${table}`);
     }
-
-
 }
