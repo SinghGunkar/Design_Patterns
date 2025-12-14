@@ -105,9 +105,9 @@ describe('British Columbia Products', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing phn
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                phn: ''
+            });
 
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('Personal Health Number is required');

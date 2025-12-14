@@ -54,6 +54,8 @@ describe('ABBillingIntegrationFactory', () => {
                 claimFormFactory.createClaimForm('invalid' as any);
             }).toThrow('Unknown claim form type: invalid');
         });
+
+
     });
 
     describe('FeeSchedule', () => {
@@ -86,9 +88,9 @@ describe('ABBillingIntegrationFactory', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing ahcId
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                ahcId: ''
+            });
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('Alberta Health Care ID is required');
         });

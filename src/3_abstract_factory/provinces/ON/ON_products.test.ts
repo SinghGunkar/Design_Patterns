@@ -139,9 +139,9 @@ describe('Ontario Products', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing ohipId
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                ohipId: ''
+            });
 
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('OHIP ID is required');

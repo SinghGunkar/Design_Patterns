@@ -6,8 +6,7 @@ const STATUS_SUCCESS = "successfully.";
 const STATUS_PRIVATE = "submitted as private pay invoice.";
 const SERVICE_OPT_EXAM = "OPT-EXAM";
 const FEE_OPT_EXAM = 80.00;
-const VALIDATION_PASSED = "AB Data Valid: Alberta Health Care check passed.";
-const VALIDATION_FAILED = "AB Data Invalid: Missing required AHC_ID.";
+
 
 export class ABVisionClaimForm implements ClaimForm {
     submit(data: ClaimData): ClaimSubmissionResult {

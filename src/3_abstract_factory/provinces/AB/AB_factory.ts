@@ -20,7 +20,7 @@ export class ABClaimFormFactory implements ClaimFormFactory {
 }
 
 export class ABBillingIntegrationFactory extends BillingIntegrationFactory<'Alberta'> {
-    protected readonly _province: 'Alberta' = 'Alberta';
+    protected readonly _province = 'Alberta' as const;
 
     createClaimFormFactory(): ClaimFormFactory {
         return new ABClaimFormFactory();

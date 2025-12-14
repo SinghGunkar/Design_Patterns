@@ -20,7 +20,7 @@ export class ONClaimFormFactory implements ClaimFormFactory {
 }
 
 export class ONBillingIntegrationFactory extends BillingIntegrationFactory<'Ontario'> {
-    protected readonly _province: 'Ontario' = 'Ontario';
+    protected readonly _province = 'Ontario' as const;
 
     createClaimFormFactory(): ClaimFormFactory {
         return new ONClaimFormFactory();

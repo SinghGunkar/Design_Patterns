@@ -6,8 +6,7 @@ const STATUS_SUCCESS = "successfully.";
 const STATUS_PRIVATE = "submitted as private pay invoice.";
 const SERVICE_OPT_EXAM = "OPT-EXAM";
 const FEE_OPT_EXAM = 85.00;
-const VALIDATION_PASSED = "BC Data Valid: Patient Health Number check passed.";
-const VALIDATION_FAILED = "BC Data Invalid: Missing required PHN.";
+
 
 
 export class BCVisionClaimForm implements ClaimForm {

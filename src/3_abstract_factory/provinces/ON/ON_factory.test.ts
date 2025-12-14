@@ -54,6 +54,8 @@ describe('ONBillingIntegrationFactory', () => {
                 claimFormFactory.createClaimForm('invalid' as any);
             }).toThrow('Unknown claim form type: invalid');
         });
+
+
     });
 
     describe('FeeSchedule', () => {
@@ -86,9 +88,9 @@ describe('ONBillingIntegrationFactory', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing ohipId
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                ohipId: ''
+            });
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('OHIP ID is required');
         });

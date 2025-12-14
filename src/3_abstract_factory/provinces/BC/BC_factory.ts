@@ -18,7 +18,7 @@ export class BCClaimFormFactory implements ClaimFormFactory {
 }
 
 export class BCBillingIntegrationFactory extends BillingIntegrationFactory<'British Columbia'> {
-    protected readonly _province: 'British Columbia' = 'British Columbia';
+    protected readonly _province = 'British Columbia' as const;
 
     createClaimFormFactory(): ClaimFormFactory {
         return new BCClaimFormFactory();

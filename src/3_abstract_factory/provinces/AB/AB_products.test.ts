@@ -144,9 +144,9 @@ describe('Alberta Products', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing ahcId
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                ahcId: ''
+            });
 
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('Alberta Health Care ID is required');

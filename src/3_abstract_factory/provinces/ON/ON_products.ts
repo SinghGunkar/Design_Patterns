@@ -6,8 +6,7 @@ const STATUS_SUCCESS = "successfully.";
 const STATUS_PRIVATE = "submitted as private pay invoice.";
 const SERVICE_OPT_EXAM = "OPT-EXAM";
 const FEE_OPT_EXAM = 70.00;
-const VALIDATION_PASSED = "ON Data Valid: OHIP check passed.";
-const VALIDATION_FAILED = "ON Data Invalid: Missing required OHIP_ID.";
+
 
 export class ONVisionClaimForm implements ClaimForm {
     submit(data: ClaimData): ClaimSubmissionResult {

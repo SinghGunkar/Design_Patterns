@@ -43,11 +43,7 @@ describe('BCBillingIntegrationFactory', () => {
             }).toThrow('Unknown claim form type');
         });
 
-        it('should throw error for unknown claim form type', () => {
-            expect(() => {
-                claimFormFactory.createClaimForm('invalid' as any);
-            }).toThrow('Unknown claim form type: invalid');
-        });
+
     });
 
     describe('FeeSchedule', () => {
@@ -80,9 +76,9 @@ describe('BCBillingIntegrationFactory', () => {
             const result = validationEngine.validate({
                 patientName: 'Test Patient',
                 isInsured: true,
-                serviceCode: 'OPT-EXAM'
-                // missing phn
-            } as any);
+                serviceCode: 'OPT-EXAM',
+                phn: ''
+            });
             expect(result.isValid).toBe(false);
             expect(result.errors).toContain('Personal Health Number is required');
         });
