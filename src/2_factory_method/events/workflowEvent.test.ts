@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { WorkflowEvent, WorkflowStatus, WorkflowPriority, WORKFLOW_EVENT_TYPE } from './workflowEvent.js';
+import { WorkflowEvent, WorkflowStatus, WorkflowPriority, WORKFLOW_EVENT_TYPE, type WorkflowPayload } from './workflowEvent.js';
 
 describe('WorkflowEvent', () => {
     const createWorkflowEvent = (overrides: Partial<{
@@ -9,7 +9,7 @@ describe('WorkflowEvent', () => {
         status: WorkflowStatus;
         priority: WorkflowPriority;
         retryCount: number;
-        payload: any;
+        payload: WorkflowPayload;
     }> = {}) => {
         return new WorkflowEvent(
             overrides.workflowId ?? 'wf-123',

@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { ONBillingIntegrationFactory } from './ON_factory.js';
 import { CLAIM_FORM_TYPES, PROVINCES } from '../../interfaces/I_claim_form.js';
 
+type InvalidClaimFormType = string;
+
 describe('ONBillingIntegrationFactory', () => {
     const factory = new ONBillingIntegrationFactory();
 
@@ -51,7 +53,7 @@ describe('ONBillingIntegrationFactory', () => {
 
         it('should throw error for unknown claim form type', () => {
             expect(() => {
-                claimFormFactory.createClaimForm('invalid' as any);
+                claimFormFactory.createClaimForm('invalid' as InvalidClaimFormType as typeof CLAIM_FORM_TYPES.VISION);
             }).toThrow('Unknown claim form type: invalid');
         });
 

@@ -47,7 +47,8 @@ export class MongoDBConnection implements DatabaseConnection {
         const collection = db.collection(table);
         const result = await collection.findOne({ id });
         if (!result) return null;
-        const { _id, ...record } = result;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { _id, ...record } = result; // _id is MongoDB's internal ID, not needed
         return record as Record<string, unknown>;
     }
 

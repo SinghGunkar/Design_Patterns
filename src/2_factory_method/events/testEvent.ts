@@ -123,4 +123,4 @@ class TestEvent extends Event<TestPayload> {
     }
 }
 
-export { TestEvent, TestType, TestStatus, TestSeverity, EVENT_TYPE as TEST_EVENT_TYPE };
+export { TestEvent, TestType, TestStatus, TestSeverity, EVENT_TYPE as TEST_EVENT_TYPE, type TestPayload };

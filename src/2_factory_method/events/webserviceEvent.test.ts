@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { WebserviceEvent, HttpMethod, WebserviceStatus, ResponseType, WEBSERVICE_EVENT_TYPE } from './webserviceEvent.js'
+import { WebserviceEvent, HttpMethod, WebserviceStatus, ResponseType, WEBSERVICE_EVENT_TYPE, type WebservicePayload } from './webserviceEvent.js'
 
 describe('WebserviceEvent', () => {
     const createWebserviceEvent = (overrides: Partial<{
@@ -10,7 +10,7 @@ describe('WebserviceEvent', () => {
         status: WebserviceStatus;
         responseType: ResponseType;
         retryAttempt: number;
-        payload: any;
+        payload: WebservicePayload;
     }> = {}) => {
         return new WebserviceEvent(
             overrides.requestId ?? 'req-123',

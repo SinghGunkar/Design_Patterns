@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { TestEvent, TestType, TestStatus, TestSeverity, TEST_EVENT_TYPE } from './testEvent.js';
+import { TestEvent, TestType, TestStatus, TestSeverity, TEST_EVENT_TYPE, type TestPayload } from './testEvent.js';
 
 describe('TestEvent', () => {
     const createTestEvent = (overrides: Partial<{
@@ -10,7 +10,7 @@ describe('TestEvent', () => {
         duration: number;
         retryCount: number;
         tags: string[];
-        payload: any;
+        payload: TestPayload
     }> = {}) => {
         return new TestEvent(
             overrides.testId ?? 'test-123',

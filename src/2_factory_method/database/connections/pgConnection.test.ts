@@ -2,25 +2,29 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { PGConnection } from './pgConnection.js';
 import { Client } from 'pg';
 
-// Mock the pg Client
+
 vi.mock('pg');
+
+interface MockClient {
+    connect: ReturnType<typeof vi.fn>;
+    end: ReturnType<typeof vi.fn>;
+    query: ReturnType<typeof vi.fn>;
+}
 
 describe('PGConnection', () => {
     let connection: PGConnection;
-    let mockClient: any;
+    let mockClient: MockClient;
 
     beforeEach(async () => {
-        // Setup mock client instance
         mockClient = {
             connect: vi.fn().mockResolvedValue(undefined),
             end: vi.fn().mockResolvedValue(undefined),
             query: vi.fn().mockResolvedValue({ rows: [] })
         };
 
-        // Mock Client constructor
-        vi.mocked(Client).mockImplementation(function (this: any) {
-            return mockClient;
-        } as any);
+        vi.mocked(Client).mockImplementation(function (this: Client) {
+            return mockClient as unknown as Client;
+        });
 
         connection = new PGConnection({
             host: 'localhost',

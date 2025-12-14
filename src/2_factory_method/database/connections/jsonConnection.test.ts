@@ -376,8 +376,9 @@ describe('JSONConnection', () => {
             await connection.update('update_table', 'persist-update', { data: 'updated' });
 
             const content = JSON.parse(fs.readFileSync(testFilePath, 'utf-8'));
-            const savedRecord = content.update_table.find((r: any) => r.id === 'persist-update');
-            expect(savedRecord.data).toBe('updated');
+            const records = content.update_table as Array<{ id: string; data: string }>;
+            const savedRecord = records.find(r => r.id === 'persist-update');
+            expect(savedRecord?.data).toBe('updated');
         });
     });
 
@@ -424,7 +425,8 @@ describe('JSONConnection', () => {
             await connection.delete('delete_table', 'persist-delete');
 
             const content = JSON.parse(fs.readFileSync(testFilePath, 'utf-8'));
-            const deleted = content.delete_table.find((r: any) => r.id === 'persist-delete');
+            const records = content.delete_table as Array<Record<string, unknown>>;
+            const deleted = records.find(r => r.id === 'persist-delete');
             expect(deleted).toBeUndefined();
         });
     });
