@@ -21,6 +21,12 @@ async function generateTrees() {
             title: 'Factory Method 2: Event Storage with Multiple Databases',
             description: 'Shows the pattern for creating database connections and storing events in SQLite, JSON, PostgreSQL, and MongoDB.',
             runCommand: 'npx tsx src/factory_method_2/index.ts'
+        },
+        {
+            base: 'src/3_abstract_factory',
+            title: 'Abstract Factory: Healthcare Billing Integration',
+            description: 'Shows the Abstract Factory pattern for creating province-specific healthcare billing components (Alberta, BC, Ontario) with type-safe claim processing, validation, and fee scheduling.',
+            runCommand: 'npx tsx src/3_abstract_factory/main.ts'
         }
     ];
 
@@ -54,4 +60,3 @@ async function generateTrees() {
 }
 
 generateTrees().catch(console.error);
-

@@ -77,3 +77,40 @@ npx tsx src/factory_method_2/index.ts
 └── sampleEvents.json
 ```
 
+## Abstract Factory: Healthcare Billing Integration
+
+Shows the Abstract Factory pattern for creating province-specific healthcare billing components (Alberta, BC, Ontario) with type-safe claim processing, validation, and fee scheduling.
+
+### How to Run
+
+```bash
+npx tsx src/3_abstract_factory/main.ts
+```
+
+### Directory Structure
+
+```
+3_abstract_factory
+├── interfaces
+│   ├── I_billing_factory.ts
+│   └── I_claim_form.ts
+├── main.test.ts
+├── main.ts
+└── provinces
+    ├── AB
+    │   ├── AB_factory.test.ts
+    │   ├── AB_factory.ts
+    │   ├── AB_products.test.ts
+    │   └── AB_products.ts
+    ├── BC
+    │   ├── BC_factory.test.ts
+    │   ├── BC_factory.ts
+    │   ├── BC_products.test.ts
+    │   └── BC_products.ts
+    └── ON
+        ├── ON_factory.test.ts
+        ├── ON_factory.ts
+        ├── ON_products.test.ts
+        └── ON_products.ts
+```
+
