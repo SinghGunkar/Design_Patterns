@@ -1,5 +1,4 @@
-import { IEdge } from './interfaces/IEdge';
-import { Properties } from './interfaces/INode';
+import { IEdge, Properties } from './interfaces.ts/index.js';
 
 export class Edge implements IEdge {
     constructor(

@@ -1,8 +1,7 @@
-import { IGraphDatabase } from './IGraphDatabase';
-import { INode, Properties } from '../models/interfaces/INode';
-import { IEdge } from '../models/interfaces/IEdge';
-import { Node } from '../models/Node';
-import { Edge } from '../models/Edge';
+import type { IGraphDatabase } from './IGraphDatabase.js';
+import type { INode, IEdge, Properties } from '../models/interfaces.ts/index.js';
+import { Node } from '../models/Node.js';
+import { Edge } from '../models/Edge.js';
 
 export class GraphDatabase implements IGraphDatabase {
     private nodes: Map<string, INode> = new Map();

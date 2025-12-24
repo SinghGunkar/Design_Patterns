@@ -1,4 +1,4 @@
-import { INode, Properties } from './interfaces/INode.js';
+import { INode, Properties } from './interfaces.ts/index.js';
 
 export class Node implements INode {
     constructor(
