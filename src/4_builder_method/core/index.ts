@@ -1,2 +1,2 @@
-export { GraphDatabase } from './GraphDatabase';
-export { IGraphDatabase } from './IGraphDatabase';
+export { GraphDatabase } from './GraphDatabase.js';
+export { type IGraphDatabase } from './IGraphDatabase.js';

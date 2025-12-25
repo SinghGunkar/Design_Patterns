@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { GraphDatabase } from './GraphDatabase.js';
+import { GraphDatabase } from './index.js'
+import type { Node, Edge } from '../models/index.js';
 
 describe('GraphDatabase', () => {
     let db: GraphDatabase;
@@ -184,7 +185,7 @@ describe('GraphDatabase', () => {
             const edges = db.getEdgesFrom(alice.id);
 
             expect(edges).toHaveLength(2);
-            expect(edges.every(e => e.from === alice.id)).toBe(true);
+            expect(edges.every((e: Edge) => e.from === alice.id)).toBe(true);
         });
 
         it('should get edges to a node', () => {
@@ -198,7 +199,7 @@ describe('GraphDatabase', () => {
             const edges = db.getEdgesTo(charlie.id);
 
             expect(edges).toHaveLength(2);
-            expect(edges.every(e => e.to === charlie.id)).toBe(true);
+            expect(edges.every((e: Edge) => e.to === charlie.id)).toBe(true);
         });
 
         it('should get all edges for a node', () => {
@@ -225,7 +226,7 @@ describe('GraphDatabase', () => {
             const result = db.findNodesByLabel('Person');
 
             expect(result.nodeCount).toBe(2);
-            expect(result.nodes.every(n => n.hasLabel('Person'))).toBe(true);
+            expect(result.nodes.every((n: Node) => n.hasLabel('Person'))).toBe(true);
         });
 
         it('should return empty result when no nodes match label', () => {

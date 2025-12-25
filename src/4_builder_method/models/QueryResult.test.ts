@@ -1,125 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { QueryResult } from './QueryResult.js';
+import { Node, Edge, QueryResult } from './index.js';
 import type { INode, IEdge } from './interfaces.ts/index.js';
-
-class MockNode implements INode {
-    constructor(
-        public id: string,
-        public labels: string[],
-        public properties: Record<string, any> = {}
-    ) { }
-
-    hasLabel(label: string): boolean {
-        return this.labels.includes(label);
-    }
-
-    getProperty(key: string): unknown {
-        return this.properties[key];
-    }
-
-    setProperty(key: string, value: unknown): void {
-        this.properties[key] = value;
-    }
-
-    hasProperty(key: string): boolean {
-        return key in this.properties;
-    }
-
-    addLabel(label: string): void {
-        if (!this.labels.includes(label)) {
-            this.labels.push(label);
-        }
-    }
-
-    removeLabel(label: string): void {
-        this.labels = this.labels.filter(l => l !== label);
-    }
-
-    toString(): string {
-        return `Node(${this.id}, [${this.labels.join(', ')}])`;
-    }
-
-    clone(): INode {
-        return new MockNode(
-            this.id,
-            [...this.labels],
-            { ...this.properties }
-        );
-    }
-}
-
-class MockEdge implements IEdge {
-    constructor(
-        public id: string,
-        public type: string,
-        private sourceId: string,
-        private targetId: string,
-        public properties: Record<string, any> = {}
-    ) { }
-
-    get from(): string {
-        return this.sourceId;
-    }
-
-    get to(): string {
-        return this.targetId;
-    }
-
-    connects(fromId: string, toId: string): boolean {
-        return (this.sourceId === fromId && this.targetId === toId) ||
-            (this.sourceId === toId && this.targetId === fromId);
-    }
-
-    involvesNode(nodeId: string): boolean {
-        return this.sourceId === nodeId || this.targetId === nodeId;
-    }
-
-    getOtherNode(nodeId: string): string | null {
-        if (this.sourceId === nodeId) {
-            return this.targetId;
-        }
-        if (this.targetId === nodeId) {
-            return this.sourceId;
-        }
-        return null;
-    }
-
-    reverse(): IEdge {
-        return new MockEdge(
-            this.id,
-            this.type,
-            this.targetId,
-            this.sourceId,
-            { ...this.properties }
-        );
-    }
-
-    getProperty(key: string): unknown {
-        return this.properties[key];
-    }
-
-    setProperty(key: string, value: unknown): void {
-        this.properties[key] = value;
-    }
-
-    hasProperty(key: string): boolean {
-        return key in this.properties;
-    }
-
-    toString(): string {
-        return `Edge(${this.id}, ${this.type}, ${this.sourceId} -> ${this.targetId})`;
-    }
-
-    clone(): IEdge {
-        return new MockEdge(
-            this.id,
-            this.type,
-            this.sourceId,
-            this.targetId,
-            { ...this.properties }
-        );
-    }
-}
 
 describe('QueryResult', () => {
     let nodes: INode[];
@@ -127,17 +8,17 @@ describe('QueryResult', () => {
 
     beforeEach(() => {
         nodes = [
-            new MockNode('n1', ['Person', 'Employee'], { name: 'Alice' }),
-            new MockNode('n2', ['Person'], { name: 'Bob' }),
-            new MockNode('n3', ['Company'], { name: 'Acme Corp' }),
-            new MockNode('n4', ['Person', 'Manager'], { name: 'Charlie' })
+            new Node('n1', ['Person', 'Employee'], { name: 'Alice' }),
+            new Node('n2', ['Person'], { name: 'Bob' }),
+            new Node('n3', ['Company'], { name: 'Acme Corp' }),
+            new Node('n4', ['Person', 'Manager'], { name: 'Charlie' })
         ];
 
         edges = [
-            new MockEdge('e1', 'WORKS_FOR', 'n1', 'n3'),
-            new MockEdge('e2', 'WORKS_FOR', 'n2', 'n3'),
-            new MockEdge('e3', 'MANAGES', 'n4', 'n1'),
-            new MockEdge('e4', 'KNOWS', 'n1', 'n2')
+            new Edge('e1', 'WORKS_FOR', 'n1', 'n3'),
+            new Edge('e2', 'WORKS_FOR', 'n2', 'n3'),
+            new Edge('e3', 'MANAGES', 'n4', 'n1'),
+            new Edge('e4', 'KNOWS', 'n1', 'n2')
         ];
     });
 

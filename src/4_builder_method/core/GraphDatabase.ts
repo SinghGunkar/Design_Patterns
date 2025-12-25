@@ -1,8 +1,6 @@
 import type { IGraphDatabase } from './IGraphDatabase.js';
 import type { INode, IEdge, Properties, IQueryResult } from '../models/interfaces.ts/index.js';
-import { Node } from '../models/Node.js';
-import { Edge } from '../models/Edge.js';
-import { QueryResult } from '../models/index.js';
+import { Node, Edge, QueryResult } from '../models/index.js';
 
 export class GraphDatabase implements IGraphDatabase {
     private nodes: Map<string, INode> = new Map();
