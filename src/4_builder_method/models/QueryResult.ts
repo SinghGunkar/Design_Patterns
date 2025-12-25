@@ -1,6 +1,4 @@
-import { INode } from './interfaces/INode';
-import { IEdge } from './interfaces/IEdge';
-import { IQueryResult } from './interfaces/IQueryResult';
+import type { INode, IEdge, IQueryResult } from './interfaces.ts/index.js';
 
 export class QueryResult implements IQueryResult {
     constructor(
@@ -41,10 +39,11 @@ export class QueryResult implements IQueryResult {
         const edgeTypes = new Set(this.edges.map(e => e.type));
 
         return `QueryResult(
-  Nodes: ${this.nodeCount}
-  Node Labels: [${Array.from(nodeLabels).join(', ')}]
-  Edges: ${this.edgeCount}
-  Edge Types: [${Array.from(edgeTypes).join(', ')}]
-)`;
+            Nodes: ${this.nodeCount}
+            Node Labels: [${Array.from(nodeLabels).join(', ')}]
+            Edges: ${this.edgeCount}
+            Edge Types: [${Array.from(edgeTypes).join(', ')}]
+            )
+        `;
     }
 }

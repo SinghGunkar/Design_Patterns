@@ -1,5 +1,4 @@
-import { INode, Properties } from '../models/interfaces/INode';
-import { IEdge } from '../models/interfaces/IEdge';
+import type { IEdge, INode, Properties, IQueryResult } from '../models/index.js';
 
 export interface IGraphDatabase {
     createNode(labels: string[], properties?: Properties): INode;
@@ -18,12 +17,12 @@ export interface IGraphDatabase {
     deleteNode(nodeId: string): boolean;
     deleteEdge(edgeId: string): boolean;
 
-    findNodesByLabel(label: string): INode[];
-    findNodesByProperty(key: string, value: unknown): INode[];
-    findEdgesByType(type: string): IEdge[];
+    findNodesByLabel(label: string): IQueryResult;
+    findNodesByProperty(key: string, value: unknown): IQueryResult;
+    findEdgesByType(type: string): IQueryResult;
 
-    getNeighbors(nodeId: string): INode[];
-    followEdgeType(nodeId: string, edgeType: string): INode[];
+    getNeighbors(nodeId: string): IQueryResult;
+    followEdgeType(nodeId: string, edgeType: string): IQueryResult;
     areConnected(fromId: string, toId: string, edgeType?: string): boolean;
 
     clear(): void;

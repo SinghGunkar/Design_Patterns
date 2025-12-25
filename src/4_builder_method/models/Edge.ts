@@ -1,4 +1,4 @@
-import { IEdge, Properties } from './interfaces.ts/index.js';
+import type { IEdge, Properties } from './interfaces.ts/index.js';
 
 export class Edge implements IEdge {
     constructor(
@@ -37,7 +37,7 @@ export class Edge implements IEdge {
 
     reverse(): IEdge {
         return new Edge(
-            `${this.id}_rev`,
+            `${this.id}_reversed`,
             this.type,
             this.to,
             this.from,

@@ -1,7 +1,8 @@
 import type { IGraphDatabase } from './IGraphDatabase.js';
-import type { INode, IEdge, Properties } from '../models/interfaces.ts/index.js';
+import type { INode, IEdge, Properties, IQueryResult } from '../models/interfaces.ts/index.js';
 import { Node } from '../models/Node.js';
 import { Edge } from '../models/Edge.js';
+import { QueryResult } from '../models/index.js';
 
 export class GraphDatabase implements IGraphDatabase {
     private nodes: Map<string, INode> = new Map();
@@ -73,30 +74,35 @@ export class GraphDatabase implements IGraphDatabase {
         return this.edges.delete(edgeId);
     }
 
-    findNodesByLabel(label: string): INode[] {
-        return this.getAllNodes().filter(node => node.hasLabel(label));
+    findNodesByLabel(label: string): IQueryResult {
+        const nodes = this.getAllNodes().filter(node => node.hasLabel(label));
+        return new QueryResult(nodes, []);
     }
 
-    findNodesByProperty(key: string, value: unknown): INode[] {
-        return this.getAllNodes().filter(node => node.getProperty(key) === value);
+    findNodesByProperty(key: string, value: unknown): IQueryResult {
+        const nodes = this.getAllNodes().filter(node => node.getProperty(key) === value);
+        return new QueryResult(nodes, []);
     }
 
-    findEdgesByType(type: string): IEdge[] {
-        return this.getAllEdges().filter(edge => edge.type === type);
+    findEdgesByType(type: string): IQueryResult {
+        const edges = this.getAllEdges().filter(edge => edge.type === type);
+        return new QueryResult([], edges);
     }
 
-    getNeighbors(nodeId: string): INode[] {
+    getNeighbors(nodeId: string): IQueryResult {
         const edges = this.getEdgesFrom(nodeId);
-        return edges
+        const nodes = edges
             .map(e => this.getNode(e.to))
             .filter(n => n !== undefined) as INode[];
+        return new QueryResult(nodes, edges);
     }
 
-    followEdgeType(nodeId: string, edgeType: string): INode[] {
+    followEdgeType(nodeId: string, edgeType: string): IQueryResult {
         const edges = this.getEdgesFrom(nodeId).filter(e => e.type === edgeType);
-        return edges
+        const nodes = edges
             .map(e => this.getNode(e.to))
             .filter(n => n !== undefined) as INode[];
+        return new QueryResult(nodes, edges);
     }
 
     areConnected(fromId: string, toId: string, edgeType?: string): boolean {

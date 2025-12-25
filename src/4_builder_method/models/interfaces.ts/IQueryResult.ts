@@ -1,5 +1,5 @@
-import { INode } from './INode';
-import { IEdge } from './IEdge';
+import type { INode } from './INode.js';
+import type { IEdge } from './IEdge.js';
 
 export interface IQueryResult {
     nodes: INode[];
